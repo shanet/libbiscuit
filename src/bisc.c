@@ -1,4 +1,5 @@
 #include "bisc.h"
+#include "biscCore.h"
 
 
 int biscInit(char *device) {

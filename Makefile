@@ -11,12 +11,12 @@ VERSION = "\"1.0.0\""
 SO = $(PROJ_NAME).so
 ARCHIVE = $(PROJ_NAME).a
 
-#INSTALL_DIR=/usr/sbin/
-
 SOURCES = $(wildcard src/*.c)
 OBJECTS = $(SOURCES:.$(LANG)=.o)
 
-CFLAGS = -Wall -Wextra -fPIC -DVERSION=$(VERSION)
+INCLUDE_DIRS = -Iinclude/
+
+CFLAGS = -Wall -Wextra $(INCLUDE_DIRS) -fPIC -DVERSION=$(VERSION)
 
 DEBUG ?= 1
 ifeq ($(DEBUG), 1)
@@ -28,8 +28,8 @@ endif
 .PHONY = all install remove clean
 
 all: $(OBJECTS)
-	$(CC) -shared -o bin/$(SO) $^
-	ar rcs bin/$(ARCHIVE) $(OBJECTS)
+	$(CC) -shared -o bin/shared/$(SO) $^
+	ar rcs bin/static/$(ARCHIVE) $(OBJECTS)
 
 install:
 	cp bin/$(BINARY) $(INSTALL_DIR)$(BINARY)
