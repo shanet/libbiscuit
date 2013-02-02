@@ -5,17 +5,18 @@
 CC=gcc
 LANG=c
 
-PROJ_NAME=libbiscuit
+PROJ_NAME = libbiscuit
 VERSION = "\"1.0.0\""
 
-BINARY=libbiscuit.so
+SO = $(PROJ_NAME).so
+ARCHIVE = $(PROJ_NAME).a
 
 #INSTALL_DIR=/usr/sbin/
 
-SOURCES=$(wildcard src/*.c)
-OBJECTS=$(SOURCES:.$(LANG)=.o)
+SOURCES = $(wildcard src/*.c)
+OBJECTS = $(SOURCES:.$(LANG)=.o)
 
-CFLAGS=-Wall -Wextra -fPIC -DVERSION=$(VERSION)
+CFLAGS = -Wall -Wextra -fPIC -DVERSION=$(VERSION)
 
 DEBUG ?= 1
 ifeq ($(DEBUG), 1)
@@ -27,7 +28,8 @@ endif
 .PHONY = all install remove clean
 
 all: $(OBJECTS)
-	$(CC) -shared -o bin/$(BINARY) $^
+	$(CC) -shared -o bin/$(SO) $^
+	ar rcs bin/$(ARCHIVE) $(OBJECTS)
 
 install:
 	cp bin/$(BINARY) $(INSTALL_DIR)$(BINARY)
