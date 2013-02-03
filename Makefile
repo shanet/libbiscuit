@@ -16,7 +16,7 @@ OBJECTS = $(SOURCES:.$(LANG)=.o)
 
 INCLUDE_DIRS = -Iinclude/
 
-CFLAGS = -Wall -Wextra $(INCLUDE_DIRS) -fPIC -DVERSION=$(VERSION)
+CFLAGS = -std=c99 -Wall -Wextra $(INCLUDE_DIRS) -fPIC -DVERSION=$(VERSION) -D_BSD_SOURCE
 
 DEBUG ?= 1
 ifeq ($(DEBUG), 1)
