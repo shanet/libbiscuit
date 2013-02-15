@@ -66,6 +66,9 @@ int biscChangeMode(int mode);
 int biscSendByte(char byte);
 char* biscGetVersion();
 
+// Drive functions
+int biscDrive(int velocity, int radius);
+
 // LED functions
 int biscTurnOnAdvanceLed();
 int biscTurnOffAdvanceLed();
