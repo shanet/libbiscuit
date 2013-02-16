@@ -12,6 +12,8 @@
 #define BISC_CMD_DIRECT_DRIVE  145
 #define BISC_CMD_WAIT_TIME     155
 #define BISC_CMD_WAIT_DISTANCE 156
+#define BISC_CMD_SONG_DEFINE   140
+#define BISC_CMD_SONG_PLAY     141
 
 #define BISC_MODE_PASSIVE 128
 #define BISC_MODE_SAFE    131
@@ -101,5 +103,8 @@ int biscSendLedCommand(void);
 int biscWaitTime(int mseconds);
 int biscWaitDistance(int distanceMM);
 
+// Song functions
+int biscDefineSong(unsigned char songNum, unsigned char *notes, unsigned char *notesDurations, unsigned int notesLen);
+int biscPlaySong(unsigned char songNum);
 
 #endif
