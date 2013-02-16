@@ -3,6 +3,8 @@
 
 
 int biscInit(char *device) {
+    assert(device != NULL);
+
     // Open a serial connection with the Create
     if(biscConnect(device) == -1) return BISC_ERR;
 
@@ -19,6 +21,8 @@ int biscInit(char *device) {
 
 
 int biscConnect(char *device) {
+    assert(device != NULL);
+
     struct termios tty;
 
     // Try to open the device
@@ -54,13 +58,15 @@ int biscDisconnect(void) {
 }
 
 
-int biscChangeMode(char mode) {
+int biscChangeMode(unsigned char mode) {
+    assert(mode == BISC_MODE_FULL || mode == BISC_MODE_SAFE || mode == BISC_MODE_PASSIVE);
+
     if(biscSendByte(BISC_CMD_START) == -1) return BISC_ERR;
     return biscSendByte(mode);
 }
 
 
-int biscSendByte(char byte) {
+int biscSendByte(unsigned char byte) {
     usleep(10000);
     return (write(deviceDescriptor, &byte, 1) == 1 ? BISC_SUCCESS : BISC_ERR);
 }
@@ -82,6 +88,8 @@ char* biscGetVersion(void) {
 
 
 int biscWaitTime(int mseconds) {
+    assert(mseconds > 0);
+
     if(biscSendByte(BISC_CMD_WAIT_TIME) == BISC_ERR) return BISC_ERR;
     if(biscSendByte(mseconds / 100)     == BISC_ERR) return BISC_ERR;
 

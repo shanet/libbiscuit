@@ -26,9 +26,10 @@ int biscTurnOffPlayLed(void) {
 }
 
 
-int biscSetPowerLed(char color, char intensity) {
+int biscSetPowerLed(unsigned char color, unsigned char intensity) {
     ledState.powerLedColor = color;
     ledState.powerLedIntensity = intensity;
+
     return biscSendLedCommand();
 }
 
@@ -40,6 +41,10 @@ int biscTurnOffPowerLed(void) {
 
 
 int biscFlashLed(char led, int numFlashes, int flashDurationMS) {
+    assert(led >= BISC_POWER_LED && led <= BISC_ADVANCE_LED);
+    assert(numFlashes > 0);
+    assert(flashDurationMS > 0);
+
     // Keep a backup of the LED state so it can be restored after flashing
     LedState stateBackup = ledState;
 

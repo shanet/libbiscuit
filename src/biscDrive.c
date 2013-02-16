@@ -1,7 +1,11 @@
 #include "bisc.h"
+#include "biscCore.h"
 
 
 int biscDrive(int velocity, int radius) {
+    assert(velocity >= -500 && velocity <= 500);
+    assert(radius >= -2000 && radius <= 2000);
+    
     if(biscSendByte(BISC_CMD_DRIVE) == BISC_ERR) return BISC_ERR;
 
     if(biscSendByte(biscHighByte(velocity)) == BISC_ERR) return BISC_ERR;
@@ -18,6 +22,8 @@ int biscDrive(int velocity, int radius) {
 
 
 int biscDirectDrive(int rightVelocity, int leftVelocity) {
+    assert(rightVelocity >= -500 && rightVelocity <= 500);
+    assert(leftVelocity >= -500 && leftVelocity <= 500);
     if(biscSendByte(BISC_CMD_DIRECT_DRIVE) == BISC_ERR) return BISC_ERR;
 
     if(biscSendByte(biscHighByte(rightVelocity)) == BISC_ERR) return BISC_ERR;
@@ -29,9 +35,11 @@ int biscDirectDrive(int rightVelocity, int leftVelocity) {
 }
 
 
-int biscTimedDrive(int velocity, int radius, int seconds) {
+int biscTimedDrive(int velocity, int radius, int mseconds) {
+    assert(mseconds > 0);
+    
     if(biscDrive(velocity, radius) == BISC_ERR) return BISC_ERR;
-    if(biscWaitTime(seconds)       == BISC_ERR) return BISC_ERR;
+    if(biscWaitTime(mseconds)       == BISC_ERR) return BISC_ERR;
     if(biscDriveStop()             == BISC_ERR) return BISC_ERR;
 
     return BISC_SUCCESS;
@@ -39,6 +47,9 @@ int biscTimedDrive(int velocity, int radius, int seconds) {
 
 
 int biscDriveDistance(int velocity, int radius, int distanceMM) {
+    // If the velocity is negative, but the distance is positive, the Create will drive forever
+    assert(velocity < 0 && distanceMM < 0);
+
     if(biscDrive(velocity, radius)  == BISC_ERR) return BISC_ERR;
     if(biscWaitDistance(distanceMM) == BISC_ERR) return BISC_ERR;
     if(biscDriveStop()              == BISC_ERR) return BISC_ERR;
@@ -68,6 +79,8 @@ int biscSpin(int velocity, int radius) {
 
 
 int biscTimedSpin(int velocity, int radius, int mseconds) {
+    assert(mseconds > 0);
+
     if(biscSpin(velocity, radius) == BISC_ERR) return BISC_ERR;
     if(biscWaitTime(mseconds)     == BISC_ERR) return BISC_ERR;
     if(biscDriveStop()            == BISC_ERR) return BISC_ERR;

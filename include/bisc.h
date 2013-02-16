@@ -1,9 +1,3 @@
-#include <termios.h> 
-#include <unistd.h> 
-#include <errno.h>
-#include <sys/file.h>
-#include <stdint.h>
-
 #ifndef BISC_H
 #define BISC_H
 
@@ -19,9 +13,9 @@
 #define BISC_CMD_WAIT_TIME     155
 #define BISC_CMD_WAIT_DISTANCE 156
 
+#define BISC_MODE_PASSIVE 128
 #define BISC_MODE_SAFE    131
 #define BISC_MODE_FULL    132
-#define BISC_MODE_PASSIVE 128
 
 
 #define BISC_CmdControl      130
@@ -75,8 +69,8 @@
 int biscInit(char *device);
 int biscConnect(char *device);
 int biscDisconnect(void);
-int biscChangeMode(char mode);
-int biscSendByte(char byte);
+int biscChangeMode(unsigned char mode);
+int biscSendByte(unsigned char byte);
 char* biscGetVersion(void);
 char biscHighByte(int num);
 char biscLowByte(int num);
@@ -98,7 +92,7 @@ int biscTurnOnAdvanceLed(void);
 int biscTurnOffAdvanceLed(void);
 int biscTurnOnPlayLed(void);
 int biscTurnOffPlayLed(void);
-int biscSetPowerLed(char color, char intensity);
+int biscSetPowerLed(unsigned char color, unsigned char intensity);
 int biscFlashLed(char led, int numFlashes, int flashDurationMS);
 int biscTurnOffPowerLed(void);
 int biscSendLedCommand(void);
