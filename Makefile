@@ -32,7 +32,7 @@ all: $(OBJECTS)
 	ar rcs bin/static/$(ARCHIVE) $(OBJECTS)
 
 install:
-	cp bin/$(BINARY) $(INSTALL_DIR)$(BINARY)
+	echo "Not implemented."
 
 remove:
 	rm $(INSTALL_DIR)$(BINARY)
@@ -42,3 +42,5 @@ remove:
 
 clean:
 	rm -f $(OBJECTS)
+	rm -f bin/shared/$(SO)
+	rm -f bin/static/$(ARCHIVE)

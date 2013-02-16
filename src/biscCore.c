@@ -39,7 +39,7 @@ int biscConnect(char *device) {
 }
 
 
-int biscDisconnect() {
+int biscDisconnect(void) {
     // Check if not connected
     if(deviceDescriptor == 0) {
         return BISC_ERR;
@@ -54,22 +54,45 @@ int biscDisconnect() {
 }
 
 
-int biscChangeMode(int mode) {
+int biscChangeMode(char mode) {
     if(biscSendByte(BISC_CMD_START) == -1) return BISC_ERR;
     return biscSendByte(mode);
 }
 
 
 int biscSendByte(char byte) {
-    if(write(deviceDescriptor, &byte, 1) != 1) {
-        return BISC_ERR;
-    }
+    usleep(10000);
+    return (write(deviceDescriptor, &byte, 1) == 1 ? BISC_SUCCESS : BISC_ERR);
+}
 
-    //usleep(5000);
+
+char biscHighByte(int num) {
+    return (num >> 8) & 0xff;
+}
+
+
+char biscLowByte(int num) {
+    return num & 0xff;
+}
+
+
+char* biscGetVersion(void) {
+    return VERSION;
+}
+
+
+int biscWaitTime(int mseconds) {
+    if(biscSendByte(BISC_CMD_WAIT_TIME) == BISC_ERR) return BISC_ERR;
+    if(biscSendByte(mseconds / 100)     == BISC_ERR) return BISC_ERR;
+
     return BISC_SUCCESS;
 }
 
 
-char* biscGetVersion() {
-    return VERSION;
+int biscWaitDistance(int distanceMM) {
+    if(biscSendByte(BISC_CMD_WAIT_DISTANCE)   == BISC_ERR) return BISC_ERR;
+    if(biscSendByte(biscHighByte(distanceMM)) == BISC_ERR) return BISC_ERR;
+    if(biscSendByte(biscLowByte(distanceMM))  == BISC_ERR) return BISC_ERR;
+
+    return BISC_SUCCESS;
 }
