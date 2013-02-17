@@ -104,3 +104,21 @@ int biscWaitDistance(int distanceMM) {
 
     return BISC_SUCCESS;
 }
+
+
+int biscWaitAngle(int degrees) {
+    if(biscSendByte(BISC_CMD_WAIT_ANGLE)   == BISC_ERR) return BISC_ERR;
+    if(biscSendByte(biscHighByte(degrees)) == BISC_ERR) return BISC_ERR;
+    if(biscSendByte(biscLowByte(degrees))  == BISC_ERR) return BISC_ERR;
+
+    return BISC_SUCCESS;
+}
+
+int biscWaitEvent(int eventCode) {
+    assert(eventCode >= 0 && eventCode <= 22);
+
+    if(biscSendByte(BISC_CMD_WAIT_EVENT) == BISC_ERR) return BISC_ERR;
+    if(biscSendByte(eventCode)           == BISC_ERR) return BISC_ERR;
+
+    return BISC_SUCCESS;
+}

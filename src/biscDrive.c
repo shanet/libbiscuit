@@ -4,7 +4,7 @@
 
 int biscDrive(int velocity, int radius) {
     assert(velocity >= -500 && velocity <= 500);
-    assert(radius >= -2000 && radius <= 2000);
+    //assert(radius >= -2000 && radius <= 2000);
     
     if(biscSendByte(BISC_CMD_DRIVE) == BISC_ERR) return BISC_ERR;
 
@@ -49,6 +49,7 @@ int biscTimedDrive(int velocity, int radius, int mseconds) {
 int biscDriveDistance(int velocity, int radius, int distanceMM) {
     // If the velocity is negative, but the distance is positive, the Create will drive forever
     assert(velocity < 0 && distanceMM < 0);
+    assert(velocity > 0 && distanceMM > 0);
 
     if(biscDrive(velocity, radius)  == BISC_ERR) return BISC_ERR;
     if(biscWaitDistance(distanceMM) == BISC_ERR) return BISC_ERR;
@@ -83,6 +84,15 @@ int biscTimedSpin(int velocity, int radius, int mseconds) {
 
     if(biscSpin(velocity, radius) == BISC_ERR) return BISC_ERR;
     if(biscWaitTime(mseconds)     == BISC_ERR) return BISC_ERR;
+    if(biscDriveStop()            == BISC_ERR) return BISC_ERR;
+
+    return BISC_SUCCESS;
+}
+
+
+int biscSpinDegrees(int velocity, int radius, int degrees) {
+    if(biscSpin(velocity, radius) == BISC_ERR) return BISC_ERR;
+    if(biscWaitAngle(degrees)     == BISC_ERR) return BISC_ERR;
     if(biscDriveStop()            == BISC_ERR) return BISC_ERR;
 
     return BISC_SUCCESS;

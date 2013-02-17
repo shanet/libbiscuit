@@ -12,6 +12,8 @@
 #define BISC_CMD_DIRECT_DRIVE  145
 #define BISC_CMD_WAIT_TIME     155
 #define BISC_CMD_WAIT_DISTANCE 156
+#define BISC_CMD_WAIT_ANGLE    157
+#define BISC_CMD_WAIT_EVENT    158
 #define BISC_CMD_SONG_DEFINE   140
 #define BISC_CMD_SONG_PLAY     141
 
@@ -87,6 +89,7 @@ int biscTimedDriveStraight(int velocity, int mseconds);
 int biscDriveDistanceStraight(int velocity, int distanceMM);
 int biscSpin(int velocity, int radius);
 int biscTimedSpin(int velocity, int radius, int mseconds);
+int biscSpinDegrees(int velocity, int radius, int degrees);
 int biscDriveStop(void);
 
 // LED functions
@@ -102,9 +105,13 @@ int biscSendLedCommand(void);
 // Wait functions
 int biscWaitTime(int mseconds);
 int biscWaitDistance(int distanceMM);
+int biscWaitAngle(int degrees);
+int biscWaitEvent(int eventCode);
 
 // Song functions
 int biscDefineSong(unsigned char songNum, unsigned char *notes, unsigned char *notesDurations, unsigned int notesLen);
 int biscPlaySong(unsigned char songNum);
+int biscBeep(void);
+int biscPlayFireflies(void);
 
 #endif
