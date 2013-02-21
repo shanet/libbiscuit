@@ -75,6 +75,7 @@ int biscConnect(char *device);
 int biscDisconnect(void);
 int biscChangeMode(unsigned char mode);
 int biscSendByte(unsigned char byte);
+int biscSendInt(int num);
 char* biscGetVersion(void);
 char biscHighByte(int num);
 char biscLowByte(int num);

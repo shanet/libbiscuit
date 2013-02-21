@@ -71,6 +71,12 @@ int biscSendByte(unsigned char byte) {
     return (write(deviceDescriptor, &byte, 1) == 1 ? BISC_SUCCESS : BISC_ERR);
 }
 
+int biscSendInt(int num) {
+    if(biscSendByte(biscHighByte(num)) == BISC_ERR) return BISC_ERR;
+    if(biscSendByte(biscLowByte(num))  == BISC_ERR) return BISC_ERR;
+
+    return BISC_SUCCESS;
+}
 
 char biscHighByte(int num) {
     return (num >> 8) & 0xff;
@@ -99,8 +105,7 @@ int biscWaitTime(int mseconds) {
 
 int biscWaitDistance(int distanceMM) {
     if(biscSendByte(BISC_CMD_WAIT_DISTANCE)   == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscHighByte(distanceMM)) == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscLowByte(distanceMM))  == BISC_ERR) return BISC_ERR;
+    if(biscSendInt(distanceMM)                == BISC_ERR) return BISC_ERR;
 
     return BISC_SUCCESS;
 }
@@ -108,8 +113,7 @@ int biscWaitDistance(int distanceMM) {
 
 int biscWaitAngle(int degrees) {
     if(biscSendByte(BISC_CMD_WAIT_ANGLE)   == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscHighByte(degrees)) == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscLowByte(degrees))  == BISC_ERR) return BISC_ERR;
+    if(biscSendInt(degrees)                == BISC_ERR) return BISC_ERR;
 
     return BISC_SUCCESS;
 }

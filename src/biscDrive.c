@@ -8,10 +8,8 @@ int biscDrive(int velocity, int radius) {
     
     if(biscSendByte(BISC_CMD_DRIVE) == BISC_ERR) return BISC_ERR;
 
-    if(biscSendByte(biscHighByte(velocity)) == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscLowByte(velocity))  == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscHighByte(radius))   == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscLowByte(radius))    == BISC_ERR) return BISC_ERR;
+    if(biscSendInt(velocity) == BISC_ERR) return BISC_ERR;
+    if(biscSendInt(radius)   == BISC_ERR) return BISC_ERR;
 
     // The LEDs turn off for whatever reason when a drive command is issued.
     // Resend the LED info so the LEDs stay in the same state.
@@ -26,10 +24,8 @@ int biscDirectDrive(int rightVelocity, int leftVelocity) {
     assert(leftVelocity >= -500 && leftVelocity <= 500);
     if(biscSendByte(BISC_CMD_DIRECT_DRIVE) == BISC_ERR) return BISC_ERR;
 
-    if(biscSendByte(biscHighByte(rightVelocity)) == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscLowByte(rightVelocity))  == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscHighByte(leftVelocity))  == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscLowByte(leftVelocity))   == BISC_ERR) return BISC_ERR;
+    if(biscSendInt(rightVelocity) == BISC_ERR) return BISC_ERR;
+    if(biscSendInt(leftVelocity)  == BISC_ERR) return BISC_ERR;
 
     return BISC_SUCCESS;
 }
