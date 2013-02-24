@@ -70,26 +70,26 @@ int biscDriveDistanceStraight(int velocity, int distanceMM) {
 }
 
 
-int biscSpin(int velocity, int radius) {
-    return biscDrive(velocity, radius);
+int biscSpin(int velocity) {
+    return biscDrive(velocity, BISC_SPIN_CW);
 }
 
 
-int biscTimedSpin(int velocity, int radius, int mseconds) {
+int biscTimedSpin(int velocity, int mseconds) {
     assert(mseconds > 0);
 
-    if(biscSpin(velocity, radius) == BISC_ERR) return BISC_ERR;
-    if(biscWaitTime(mseconds)     == BISC_ERR) return BISC_ERR;
-    if(biscDriveStop()            == BISC_ERR) return BISC_ERR;
+    if(biscSpin(velocity)     == BISC_ERR) return BISC_ERR;
+    if(biscWaitTime(mseconds) == BISC_ERR) return BISC_ERR;
+    if(biscDriveStop()        == BISC_ERR) return BISC_ERR;
 
     return BISC_SUCCESS;
 }
 
 
-int biscSpinDegrees(int velocity, int radius, int degrees) {
-    if(biscSpin(velocity, radius) == BISC_ERR) return BISC_ERR;
-    if(biscWaitAngle(degrees)     == BISC_ERR) return BISC_ERR;
-    if(biscDriveStop()            == BISC_ERR) return BISC_ERR;
+int biscSpinDegrees(int velocity, int degrees) {
+    if(biscSpin(velocity)     == BISC_ERR) return BISC_ERR;
+    if(biscWaitAngle(degrees) == BISC_ERR) return BISC_ERR;
+    if(biscDriveStop()        == BISC_ERR) return BISC_ERR;
 
     return BISC_SUCCESS;
 }
