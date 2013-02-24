@@ -75,6 +75,7 @@ int biscConnect(char *device);
 int biscDisconnect(void);
 int biscChangeMode(unsigned char mode);
 int biscSendByte(unsigned char byte);
+int biscSendInt(int num);
 char* biscGetVersion(void);
 char biscHighByte(int num);
 char biscLowByte(int num);
@@ -87,9 +88,9 @@ int biscDriveDistance(int velocity, int radius, int distanceMM);
 int biscDriveStraight(int velocity);
 int biscTimedDriveStraight(int velocity, int mseconds);
 int biscDriveDistanceStraight(int velocity, int distanceMM);
-int biscSpin(int velocity, int radius);
-int biscTimedSpin(int velocity, int radius, int mseconds);
-int biscSpinDegrees(int velocity, int radius, int degrees);
+int biscSpin(int velocity);
+int biscTimedSpin(int velocity, int mseconds);
+int biscSpinDegrees(int velocity, int degrees);
 int biscDriveStop(void);
 
 // LED functions

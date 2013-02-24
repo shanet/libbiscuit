@@ -8,10 +8,8 @@ int biscDrive(int velocity, int radius) {
     
     if(biscSendByte(BISC_CMD_DRIVE) == BISC_ERR) return BISC_ERR;
 
-    if(biscSendByte(biscHighByte(velocity)) == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscLowByte(velocity))  == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscHighByte(radius))   == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscLowByte(radius))    == BISC_ERR) return BISC_ERR;
+    if(biscSendInt(velocity) == BISC_ERR) return BISC_ERR;
+    if(biscSendInt(radius)   == BISC_ERR) return BISC_ERR;
 
     // The LEDs turn off for whatever reason when a drive command is issued.
     // Resend the LED info so the LEDs stay in the same state.
@@ -26,10 +24,8 @@ int biscDirectDrive(int rightVelocity, int leftVelocity) {
     assert(leftVelocity >= -500 && leftVelocity <= 500);
     if(biscSendByte(BISC_CMD_DIRECT_DRIVE) == BISC_ERR) return BISC_ERR;
 
-    if(biscSendByte(biscHighByte(rightVelocity)) == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscLowByte(rightVelocity))  == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscHighByte(leftVelocity))  == BISC_ERR) return BISC_ERR;
-    if(biscSendByte(biscLowByte(leftVelocity))   == BISC_ERR) return BISC_ERR;
+    if(biscSendInt(rightVelocity) == BISC_ERR) return BISC_ERR;
+    if(biscSendInt(leftVelocity)  == BISC_ERR) return BISC_ERR;
 
     return BISC_SUCCESS;
 }
@@ -74,26 +70,26 @@ int biscDriveDistanceStraight(int velocity, int distanceMM) {
 }
 
 
-int biscSpin(int velocity, int radius) {
-    return biscDrive(velocity, radius);
+int biscSpin(int velocity) {
+    return biscDrive(velocity, BISC_SPIN_CW);
 }
 
 
-int biscTimedSpin(int velocity, int radius, int mseconds) {
+int biscTimedSpin(int velocity, int mseconds) {
     assert(mseconds > 0);
 
-    if(biscSpin(velocity, radius) == BISC_ERR) return BISC_ERR;
-    if(biscWaitTime(mseconds)     == BISC_ERR) return BISC_ERR;
-    if(biscDriveStop()            == BISC_ERR) return BISC_ERR;
+    if(biscSpin(velocity)     == BISC_ERR) return BISC_ERR;
+    if(biscWaitTime(mseconds) == BISC_ERR) return BISC_ERR;
+    if(biscDriveStop()        == BISC_ERR) return BISC_ERR;
 
     return BISC_SUCCESS;
 }
 
 
-int biscSpinDegrees(int velocity, int radius, int degrees) {
-    if(biscSpin(velocity, radius) == BISC_ERR) return BISC_ERR;
-    if(biscWaitAngle(degrees)     == BISC_ERR) return BISC_ERR;
-    if(biscDriveStop()            == BISC_ERR) return BISC_ERR;
+int biscSpinDegrees(int velocity, int degrees) {
+    if(biscSpin(velocity)     == BISC_ERR) return BISC_ERR;
+    if(biscWaitAngle(degrees) == BISC_ERR) return BISC_ERR;
+    if(biscDriveStop()        == BISC_ERR) return BISC_ERR;
 
     return BISC_SUCCESS;
 }
