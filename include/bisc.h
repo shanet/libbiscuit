@@ -21,18 +21,6 @@
 #define BISC_MODE_SAFE    131
 #define BISC_MODE_FULL    132
 
-
-#define BISC_CmdControl      130
-#define BISC_CmdSong         140
-#define BISC_CmdPlay         141
-#define BISC_CmdSensors      142
-#define BISC_CmdDock         143
-#define BISC_CmdPWMMotors    144
-#define BISC_CmdDriveWheels  145
-#define BISC_CmdOutputs      147
-#define BISC_CmdSensorList   149
-#define BISC_CmdIRChar       151
-
 // Drive
 #define BISC_DRIVE_FORWARD_FULL_SPEED      500
 #define BISC_DRIVE_BACKWARD_FULL_SPEED    -500
@@ -44,7 +32,6 @@
 #define BISC_SPIN_CW                       0xFFFF
 #define BISC_SPIN_CCW                      0x1
 #define BISC_DRIVE_STOP                    0
-
 
 // LEDs
 #define BISC_POWER_LED                 0
