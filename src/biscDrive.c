@@ -86,7 +86,7 @@ int biscTimedSpin(int velocity, int mseconds) {
 }
 
 
-int biscSpinDegrees(int velocity, int degrees) {
+int biscSpinAngle(int velocity, int degrees) {
     if(biscSpin(velocity)     == BISC_ERR) return BISC_ERR;
     if(biscWaitAngle(degrees) == BISC_ERR) return BISC_ERR;
     if(biscDriveStop()        == BISC_ERR) return BISC_ERR;

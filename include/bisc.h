@@ -77,7 +77,7 @@ int biscTimedDriveStraight(int velocity, int mseconds);
 int biscDriveDistanceStraight(int velocity, int distanceMM);
 int biscSpin(int velocity);
 int biscTimedSpin(int velocity, int mseconds);
-int biscSpinDegrees(int velocity, int degrees);
+int biscSpinAngle(int velocity, int degrees);
 int biscDriveStop(void);
 
 // LED functions
