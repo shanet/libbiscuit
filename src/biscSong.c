@@ -3,16 +3,16 @@
 
 
 int biscDefineSong(unsigned char songNum, unsigned char *notes, unsigned char *notesDurations, unsigned int notesLen) {
-    assert(songNum <= 15);
+    assert(songNum <= BISC_MAX_SONG_NUM);
     assert(sizeof(notes) == sizeof(notesDurations));
-    assert(notesLen > 0 && notesLen <= 16);
+    assert(notesLen > 0 && notesLen <= BISC_MAX_SONG_LEN);
 
     if(biscSendByte(BISC_CMD_SONG_DEFINE) == BISC_ERR) return BISC_ERR;
     if(biscSendByte(songNum)              == BISC_ERR) return BISC_ERR;
     if(biscSendByte(notesLen)             == BISC_ERR) return BISC_ERR;
 
     for(unsigned int i=0; i<notesLen; i++) {
-        assert(notes[i] >= 31 && notes[i] <= 127);
+        assert(notes[i] >= BISC_MIN_NOTE && notes[i] <= BISC_MAX_NOTE);
 
         if(biscSendByte(notes[i])          == BISC_ERR) return BISC_ERR;
         if(biscSendByte(notesDurations[i]) == BISC_ERR) return BISC_ERR;
@@ -23,7 +23,7 @@ int biscDefineSong(unsigned char songNum, unsigned char *notes, unsigned char *n
 
 
 int biscPlaySong(unsigned char songNum) {
-    assert(songNum <= 15);
+    assert(songNum <= BISC_MAX_SONG_NUM);
 
     if(biscSendByte(BISC_CMD_SONG_PLAY) == BISC_ERR) return BISC_ERR;
     if(biscSendByte(songNum) == BISC_ERR) return BISC_ERR;

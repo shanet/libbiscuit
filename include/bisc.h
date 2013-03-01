@@ -55,6 +55,12 @@
 #define BISC_PLAY_LED_BIT              1
 #define BISC_ADVANCE_LED_BIT           3
 
+// Songs
+#define BISC_MAX_SONG_LEN 16
+#define BISC_MAX_SONG_NUM 15
+#define BISC_MIN_NOTE     31
+#define BISC_MAX_NOTE     127
+
 
 // Basic functions
 int biscInit(char *device);
