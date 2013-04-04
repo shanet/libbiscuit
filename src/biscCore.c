@@ -3,7 +3,11 @@
 
 
 int biscInit(char *device) {
-    assert(device != NULL);
+    #ifndef NDEBUG
+        assert(device != NULL);
+    #elif
+        if(device == NULL) return BISC_ERR;
+    #endif
 
     // Open a serial connection with the Create
     if(biscConnect(device) == -1) return BISC_ERR;
@@ -21,8 +25,11 @@ int biscInit(char *device) {
 
 
 int biscConnect(char *device) {
-    assert(device != NULL);
-
+    #ifndef NDEBUG
+        assert(device != NULL);
+    #elif
+        if(device == NULL) return BISC_ERR;
+    #endif
     struct termios tty;
 
     // Try to open the device
@@ -59,7 +66,11 @@ int biscDisconnect(void) {
 
 
 int biscChangeMode(unsigned char mode) {
-    assert(mode == BISC_MODE_FULL || mode == BISC_MODE_SAFE || mode == BISC_MODE_PASSIVE);
+    #ifndef NDEBUG
+        assert(mode == BISC_MODE_FULL || mode == BISC_MODE_SAFE || mode == BISC_MODE_PASSIVE);
+    #elif
+        if(mode != BISC_MODE_FULL && mode != BISC_MODE_SAFE && mode != BISC_MODE_PASSIVE) return BISC_ERR;
+    #endif
 
     if(biscSendByte(BISC_CMD_START) == -1) return BISC_ERR;
     return biscSendByte(mode);
@@ -78,6 +89,7 @@ int biscSendInt(int num) {
     return BISC_SUCCESS;
 }
 
+
 char biscHighByte(int num) {
     return (num >> 8) & 0xff;
 }
@@ -94,7 +106,11 @@ char* biscGetVersion(void) {
 
 
 int biscWaitTime(int mseconds) {
-    assert(mseconds > 0);
+    #ifndef NDEBUG
+        assert(mseconds > 0);
+    #elif
+        if(mseconds <= 0) return BISC_ERR;
+    #endif
 
     if(biscSendByte(BISC_CMD_WAIT_TIME) == BISC_ERR) return BISC_ERR;
     if(biscSendByte(mseconds / 100)     == BISC_ERR) return BISC_ERR;
@@ -118,8 +134,13 @@ int biscWaitAngle(int degrees) {
     return BISC_SUCCESS;
 }
 
+
 int biscWaitEvent(int eventCode) {
-    assert(eventCode >= 0 && eventCode <= 22);
+    #ifndef NDEBUG
+        assert(eventCode >= 0 && eventCode <= 22);
+    #elif
+        if(eventCode < 0 || eventCode > 22) return BISC_ERR;
+    #endif
 
     if(biscSendByte(BISC_CMD_WAIT_EVENT) == BISC_ERR) return BISC_ERR;
     if(biscSendByte(eventCode)           == BISC_ERR) return BISC_ERR;
