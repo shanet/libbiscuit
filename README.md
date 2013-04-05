@@ -77,6 +77,7 @@ A brief outline of interesting functions follows.
 ### LED functions
 `int biscTurnOnAdvanceLed(void);`
 * Turn on the advance LED.
+
 `int biscTurnOffAdvanceLed(void);`
 * Turn off the advance LED.
 
@@ -94,9 +95,9 @@ A brief outline of interesting functions follows.
 
 `int biscFlashLed(char led, int numFlashes, int flashDurationMS);`
 * Flash the given LED a number of times for a number of milliseconds. Valid LEDS:
-    * BISC_POWER_LED
-    * BISC_PLAY_LED
-    * BISC_ADVANCE_LED
+    * `BISC_POWER_LED`
+    * `BISC_PLAY_LED`
+    * `BISC_ADVANCE_LED`
 
 ### Wait functions
 `int biscWaitTime(int mseconds);`
