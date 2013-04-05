@@ -62,11 +62,9 @@ int biscTimedDrive(int velocity, int radius, int mseconds) {
 int biscDriveDistance(int velocity, int radius, int distanceMM) {
     // If the velocity is negative, but the distance is positive, the Create will drive forever
     #ifndef NDEBUG
-        assert(velocity < 0 && distanceMM < 0);
-        assert(velocity > 0 && distanceMM > 0);
+        assert((velocity <= 0 && distanceMM <= 0) || (velocity >= 0 && distanceMM >= 0));
     #elif
-        if(velocity > 0 && distanceMM < 0) return BISC_ERR;
-        if(velocity < 0 && distanceMM > 0) return BISC_ERR;
+        if((velocity > 0 && distanceMM < 0) || (velocity < 0 && distanceMM > 0)) return BISC_ERR;
     #endif
 
     if(biscDrive(velocity, radius)  == BISC_ERR) return BISC_ERR;
