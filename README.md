@@ -16,7 +16,7 @@ To use libbiscuit in your project, link against the static library or shared obj
 
 To use the library, you must first connect to the iRobot Create with the `bisc_init([device])` function, where `device` is the block device of the Create (this is usually `/dev/ttyUSB0`). After `bisc_init()`, you'll be connected to the Create and ready to call any other function to control it.
 
-A brief outline of interesting functions follows.
+A brief outline of interesting functions follows. When in doubt, look at the source--it's very straightforward. At the very least, take a look at `bisc.h`; a lot of helpful macros are defined in there.
 
 ### Core functions
 `int biscInit(char *device);`
