@@ -7,7 +7,7 @@ int biscDrive(int velocity, int radius) {
         assert(velocity >= -500 && velocity <= 500);
         //assert(radius >= -2000 && radius <= 2000);
     #else
-        if(velocity < -500 || velocity < 500) return BISC_ERR;
+        if(velocity < -500 || velocity > 500) return BISC_ERR;
         //if(radius < -2000 || radius > 2000) return BISC_ERR;
     #endif
 
