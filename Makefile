@@ -32,13 +32,13 @@ else
 	CFLAGS += -O2
 endif
 
-.PHONY = all test install remove clean
+.PHONY = all check install remove clean
 
 all: $(OBJECTS)
 	$(CC) -shared -o bin/shared/$(SO) $^
 	ar rcs bin/static/$(ARCHIVE) $(OBJECTS)
 
-test: all
+check: all
 	$(CC) $(TEST_CFLAGS) -o bin/tests/$(TEST_BINARY) $(TEST_SOURCES) $(TEST_LIB_INCLUDE_DIRS) $(TEST_LIBS)
 	bin/tests/$(TEST_BINARY)
 
