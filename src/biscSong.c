@@ -12,7 +12,7 @@ int biscDefineSong(unsigned char songNum, unsigned char *notes, unsigned char *n
     if(biscSendByte(notesLen)             == BISC_ERR) return BISC_ERR;
 
     for(unsigned int i=0; i<notesLen; i++) {
-        assert(notes[i] >= BISC_MIN_NOTE && notes[i] <= BISC_MAX_NOTE);
+        if(notes[i] < BISC_MIN_NOTE || notes[i] > BISC_MAX_NOTE) return BISC_ERR;
 
         if(biscSendByte(notes[i])          == BISC_ERR) return BISC_ERR;
         if(biscSendByte(notesDurations[i]) == BISC_ERR) return BISC_ERR;
