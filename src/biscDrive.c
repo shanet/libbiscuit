@@ -3,15 +3,8 @@
 
 
 int biscDrive(int velocity, int radius) {
-    #ifndef NDEBUG
-        assert(velocity >= -500 && velocity <= 500);
-        //assert(radius >= -2000 && radius <= 2000);
-    #else
-        if(velocity < -500 || velocity > 500) return BISC_ERR;
-        //if(radius < -2000 || radius > 2000) return BISC_ERR;
-    #endif
-
-        
+    if(velocity < -500 || velocity > 500) return BISC_ERR;
+    //if(radius < -2000 || radius > 2000) return BISC_ERR;
 
     if(biscSendByte(BISC_CMD_DRIVE) == BISC_ERR) return BISC_ERR;
 
@@ -27,13 +20,8 @@ int biscDrive(int velocity, int radius) {
 
 
 int biscDirectDrive(int rightVelocity, int leftVelocity) {
-    #ifndef NDEBUG
-        assert(rightVelocity >= -500 && rightVelocity <= 500);
-        assert(leftVelocity >= -500 && leftVelocity <= 500);
-    #else
-        if(rightVelocity < -500 || rightVelocity > 500) return BISC_ERR;
-        if(leftVelocity < -500 || leftVelocity > 500) return BISC_ERR;
-    #endif
+    if(rightVelocity < -500 || rightVelocity > 500) return BISC_ERR;
+    if(leftVelocity < -500 || leftVelocity > 500) return BISC_ERR;
 
     if(biscSendByte(BISC_CMD_DIRECT_DRIVE) == BISC_ERR) return BISC_ERR;
 
@@ -45,11 +33,7 @@ int biscDirectDrive(int rightVelocity, int leftVelocity) {
 
 
 int biscTimedDrive(int velocity, int radius, int mseconds) {
-    #ifndef NDEBUG
-        assert(mseconds > 0);
-    #else
-        if(mseconds <= 0) return BISC_ERR;
-    #endif
+    if(mseconds <= 0) return BISC_ERR;
     
     if(biscDrive(velocity, radius) == BISC_ERR) return BISC_ERR;
     if(biscWaitTime(mseconds)      == BISC_ERR) return BISC_ERR;
@@ -61,11 +45,7 @@ int biscTimedDrive(int velocity, int radius, int mseconds) {
 
 int biscDriveDistance(int velocity, int radius, int distanceMM) {
     // If the velocity is negative, but the distance is positive, the Create will drive forever
-    #ifndef NDEBUG
-        assert((velocity <= 0 && distanceMM <= 0) || (velocity >= 0 && distanceMM >= 0));
-    #else
-        if((velocity > 0 && distanceMM < 0) || (velocity < 0 && distanceMM > 0)) return BISC_ERR;
-    #endif
+    if((velocity > 0 && distanceMM < 0) || (velocity < 0 && distanceMM > 0)) return BISC_ERR;
 
     if(biscDrive(velocity, radius)  == BISC_ERR) return BISC_ERR;
     if(biscWaitDistance(distanceMM) == BISC_ERR) return BISC_ERR;
@@ -96,11 +76,7 @@ int biscSpin(int velocity) {
 
 
 int biscTimedSpin(int velocity, int mseconds) {
-    #ifndef NDEBUG
-        assert(mseconds > 0);
-    #else
-        if(mseconds <= 0) return BISC_ERR;
-    #endif
+    if(mseconds <= 0) return BISC_ERR;
 
     if(biscSpin(velocity)     == BISC_ERR) return BISC_ERR;
     if(biscWaitTime(mseconds) == BISC_ERR) return BISC_ERR;

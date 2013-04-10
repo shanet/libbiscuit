@@ -5,7 +5,6 @@
 #include <unistd.h> 
 #include <errno.h>
 #include <sys/file.h>
-#include <assert.h>
 
 typedef struct {
     char playAdvanceState;

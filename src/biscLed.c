@@ -41,15 +41,9 @@ int biscTurnOffPowerLed(void) {
 
 
 int biscFlashLed(char led, int numFlashes, int flashDurationMS) {
-    #ifndef NDEBUG
-        assert(led >= BISC_POWER_LED && led <= BISC_ADVANCE_LED);
-        assert(numFlashes > 0);
-        assert(flashDurationMS > 0);
-    #else
-        if(led < BISC_POWER_LED || led > BISC_ADVANCE_LED) return BISC_ERR;
-        if(numFlashes <= 0)                                return BISC_ERR;
-        if(flashDurationMS <= 0)                           return BISC_ERR;
-    #endif
+    if(led < BISC_POWER_LED || led > BISC_ADVANCE_LED) return BISC_ERR;
+    if(numFlashes <= 0)                                return BISC_ERR;
+    if(flashDurationMS <= 0)                           return BISC_ERR;
 
     // Keep a backup of the LED state so it can be restored after flashing
     LedState stateBackup = ledState;

@@ -3,11 +3,7 @@
 
 
 int biscInit(char *device) {
-    #ifndef NDEBUG
-        assert(device != NULL);
-    #else
-        if(device == NULL) return BISC_ERR;
-    #endif
+    if(device == NULL) return BISC_ERR;
 
     // Open a serial connection with the Create
     if(biscConnect(device) == -1) return BISC_ERR;
@@ -25,11 +21,8 @@ int biscInit(char *device) {
 
 
 int biscConnect(char *device) {
-    #ifndef NDEBUG
-        assert(device != NULL);
-    #else
-        if(device == NULL) return BISC_ERR;
-    #endif
+    if(device == NULL) return BISC_ERR;
+
     struct termios tty;
 
     // Try to open the device
@@ -66,11 +59,7 @@ int biscDisconnect(void) {
 
 
 int biscChangeMode(unsigned char mode) {
-    #ifndef NDEBUG
-        assert(mode == BISC_MODE_FULL || mode == BISC_MODE_SAFE || mode == BISC_MODE_PASSIVE);
-    #else
-        if(mode != BISC_MODE_FULL && mode != BISC_MODE_SAFE && mode != BISC_MODE_PASSIVE) return BISC_ERR;
-    #endif
+    if(mode != BISC_MODE_FULL && mode != BISC_MODE_SAFE && mode != BISC_MODE_PASSIVE) return BISC_ERR;
 
     if(biscSendByte(BISC_CMD_START) == -1) return BISC_ERR;
     return biscSendByte(mode);
@@ -106,11 +95,7 @@ char* biscGetVersion(void) {
 
 
 int biscWaitTime(int mseconds) {
-    #ifndef NDEBUG
-        assert(mseconds > 0);
-    #else
-        if(mseconds <= 0) return BISC_ERR;
-    #endif
+    if(mseconds <= 0) return BISC_ERR;
 
     if(biscSendByte(BISC_CMD_WAIT_TIME) == BISC_ERR) return BISC_ERR;
     if(biscSendByte(mseconds / 100)     == BISC_ERR) return BISC_ERR;
@@ -136,11 +121,7 @@ int biscWaitAngle(int degrees) {
 
 
 int biscWaitEvent(int eventCode) {
-    #ifndef NDEBUG
-        assert(eventCode >= 0 && eventCode <= 22);
-    #else
-        if(eventCode < 0 || eventCode > 22) return BISC_ERR;
-    #endif
+    if(eventCode < 0 || eventCode > 22) return BISC_ERR;
 
     if(biscSendByte(BISC_CMD_WAIT_EVENT) == BISC_ERR) return BISC_ERR;
     if(biscSendByte(eventCode)           == BISC_ERR) return BISC_ERR;
