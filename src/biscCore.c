@@ -5,7 +5,7 @@
 int biscInit(char *device) {
     #ifndef NDEBUG
         assert(device != NULL);
-    #elif
+    #else
         if(device == NULL) return BISC_ERR;
     #endif
 
@@ -27,7 +27,7 @@ int biscInit(char *device) {
 int biscConnect(char *device) {
     #ifndef NDEBUG
         assert(device != NULL);
-    #elif
+    #else
         if(device == NULL) return BISC_ERR;
     #endif
     struct termios tty;
@@ -68,7 +68,7 @@ int biscDisconnect(void) {
 int biscChangeMode(unsigned char mode) {
     #ifndef NDEBUG
         assert(mode == BISC_MODE_FULL || mode == BISC_MODE_SAFE || mode == BISC_MODE_PASSIVE);
-    #elif
+    #else
         if(mode != BISC_MODE_FULL && mode != BISC_MODE_SAFE && mode != BISC_MODE_PASSIVE) return BISC_ERR;
     #endif
 
@@ -108,7 +108,7 @@ char* biscGetVersion(void) {
 int biscWaitTime(int mseconds) {
     #ifndef NDEBUG
         assert(mseconds > 0);
-    #elif
+    #else
         if(mseconds <= 0) return BISC_ERR;
     #endif
 
@@ -138,7 +138,7 @@ int biscWaitAngle(int degrees) {
 int biscWaitEvent(int eventCode) {
     #ifndef NDEBUG
         assert(eventCode >= 0 && eventCode <= 22);
-    #elif
+    #else
         if(eventCode < 0 || eventCode > 22) return BISC_ERR;
     #endif
 

@@ -45,7 +45,7 @@ int biscFlashLed(char led, int numFlashes, int flashDurationMS) {
         assert(led >= BISC_POWER_LED && led <= BISC_ADVANCE_LED);
         assert(numFlashes > 0);
         assert(flashDurationMS > 0);
-    #elif
+    #else
         if(led < BISC_POWER_LED || led > BISC_ADVANCE_LED) return BISC_ERR;
         if(numFlashes <= 0)                                return BISC_ERR;
         if(flashDurationMS <= 0)                           return BISC_ERR;

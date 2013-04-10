@@ -7,7 +7,7 @@ int biscDefineSong(unsigned char songNum, unsigned char *notes, unsigned char *n
         assert(songNum <= BISC_MAX_SONG_NUM);
         assert(sizeof(notes) == sizeof(notesDurations));
         assert(notesLen > 0 && notesLen <= BISC_MAX_SONG_LEN);
-    #elif
+    #else
         if(songNum > BISC_MAX_SONG_NUM)                   return BISC_ERR;
         if(sizeof(notes) != sizeof(notesDurations))       return BISC_ERR;
         if(notesLen <= 0 || notesLen > BISC_MAX_SONG_LEN) return BISC_ERR;
@@ -31,7 +31,7 @@ int biscDefineSong(unsigned char songNum, unsigned char *notes, unsigned char *n
 int biscPlaySong(unsigned char songNum) {
     #ifndef NDEBUG
         assert(songNum <= BISC_MAX_SONG_NUM);
-    #elif
+    #else
         if(songNum > BISC_MAX_SONG_NUM) return BISC_ERR;
     #endif
 
